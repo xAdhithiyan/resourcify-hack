@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import logo from './assets/logo.png';
+import SideDash from './smallerComponents/SideDash';
 
 function AddEmployee() {
   const [value, setValue] = useState({
@@ -85,36 +84,9 @@ function AddEmployee() {
       });
   }
 
-  let navigate = useNavigate();
-  function backToLogin() {
-    navigate('/', {});
-  }
-
   return (
     <div className="flex bg-gray-300">
-      <div className="w-96 m-4 rounded p-2 bg-white ">
-        <div className="flex justify-center">
-          <img src={logo} alt="Stopwatch Logo" className="w-64  mb-6 rounded" />
-        </div>
-        <div className="flex flex-col gap:6">
-          <div className="p-4 bg-green-500 rounded-lg pl-5 m-4 font-bold text-center cursor-default">Add Employee</div>
-          <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4  m-4 rounded-lg hover:bg-green-500 transition duration-500  text-center cursor-default">Manage Departments</div>
-          <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Schedule</div>
-          <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Assign Projects</div>
-          <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Visualization</div>
-
-          <div
-            className="w-28 h-14 rounded-lg fixed bottom-10 left-28 font-bold text-red-500 hover:bg-red-500 hover:text-white transition duration-500 flex justify-center items-center cursor-default"
-            onClick={backToLogin}
-          >
-            <div>Logout</div>
-          </div>
-        </div>
-      </div>
+      <SideDash />
 
       <div className="flex flex-col items-center justify-center h-screen bg-gray-300 w-full">
         <form onSubmit={submitForm} className="bg-white p-8 rounded shadow-md ">
