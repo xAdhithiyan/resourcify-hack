@@ -31,10 +31,32 @@ function AddEmployee() {
   }
 
   function resetForm() {
-    let inputArr = document.querySelectorAll('input');
+    /*     let inputArr = document.querySelectorAll('input');
     inputArr.forEach((item) => {
-      item.value == '';
+      item.value = '';
+    }); */
+
+    setValue({
+      employeeId: '',
+      name: '',
+      grade: '',
+      DOB: '',
+      location: '',
+      remote: '',
+      projectDetails: '',
+      billing: '',
+      language: '',
+      salary: '',
+      remarks: '',
+      joinDate: '',
+      endDate: '',
+      designation: '',
+      projectName: '',
+      projectId: '',
     });
+
+    document.querySelector('.formError').textContent = 'User Entered';
+    document.querySelector('.formError').style.color = 'green';
   }
 
   function submitForm(e) {
@@ -46,14 +68,19 @@ function AddEmployee() {
     };
 
     fetch('http://localhost:3000/setEmployee', requestOptions)
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.ok) {
+          resetForm();
+          return response.json();
+        }
+        document.querySelector('.formError').style.color = 'red';
+        document.querySelector('.formError').textContent = 'Network response was not ok';
+      })
       .then((data) => {
         console.log('Success:', data);
-        resetForm();
       })
       .catch((error) => {
         console.error('Error:', error);
-        console.log('hi');
         document.querySelector('.formError').textContent = error;
       });
   }

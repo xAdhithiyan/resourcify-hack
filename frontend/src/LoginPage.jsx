@@ -17,7 +17,6 @@ function LoginPage() {
   function submitForm(e) {
     e.preventDefault();
     let div = document.querySelector('.errorMessage');
-    console.log(div);
 
     if (value.username == 'admin' && value.password == 'admin') {
       navigate('/employee', {});
