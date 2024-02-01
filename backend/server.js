@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 const Employee = require('./models/employeModels');
+const cors = require('cors');
+
+app.use(cors());
 
 // using middleware -> to understand middle warer
 app.use(express.json());

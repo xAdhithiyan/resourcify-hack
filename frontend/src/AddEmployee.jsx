@@ -1,10 +1,8 @@
 import { useState } from 'react';
-import logo from './assets/logo.png';
 import { useNavigate } from 'react-router-dom';
+import logo from './assets/logo.png';
 
 function AddEmployee() {
-  let navigate = useNavigate();
-
   const [value, setValue] = useState({
     employeeId: '',
     name: '',
@@ -15,10 +13,10 @@ function AddEmployee() {
     projectDetails: '',
     billing: '',
     language: '',
-    currentSalray: '',
+    salary: '',
     remarks: '',
     joinDate: '',
-    endDAte: '',
+    endDate: '',
     designation: '',
     projectName: '',
     projectId: '',
@@ -32,9 +30,37 @@ function AddEmployee() {
     }
   }
 
+  function resetForm() {
+    let inputArr = document.querySelectorAll('input');
+    inputArr.forEach((item) => {
+      item.value == '';
+    });
+  }
+
   function submitForm(e) {
     e.preventDefault();
-    console.log(value);
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(value),
+    };
+
+    fetch('http://localhost:3000/setEmployee', requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('Success:', data);
+        resetForm();
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        console.log('hi');
+        document.querySelector('.formError').textContent = error;
+      });
+  }
+
+  let navigate = useNavigate();
+  function backToLogin() {
+    navigate('/', {});
   }
 
   return (
@@ -43,7 +69,24 @@ function AddEmployee() {
         <div className="flex justify-center">
           <img src={logo} alt="Stopwatch Logo" className="w-64  mb-6 rounded" />
         </div>
-        <div className="p-4 bg-green-500 rounded pl-5 m-4 border-2 border-black">Add Employee</div>
+        <div className="flex flex-col gap:6">
+          <div className="p-4 bg-green-500 rounded-lg pl-5 m-4 font-bold text-center cursor-default">Add Employee</div>
+          <div className="border-b-2 border-black w-3/5 self-center"></div>
+          <div className="p-4  m-4 rounded-lg hover:bg-green-500 transition duration-500  text-center cursor-default">Manage Departments</div>
+          <div className="border-b-2 border-black w-3/5 self-center"></div>
+          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Schedule</div>
+          <div className="border-b-2 border-black w-3/5 self-center"></div>
+          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Assign Projects</div>
+          <div className="border-b-2 border-black w-3/5 self-center"></div>
+          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Visualization</div>
+
+          <div
+            className="w-28 h-14 rounded-lg fixed bottom-10 left-28 font-bold text-red-500 hover:bg-red-500 hover:text-white transition duration-500 flex justify-center items-center cursor-default"
+            onClick={backToLogin}
+          >
+            <div>Logout</div>
+          </div>
+        </div>
       </div>
 
       <div className="flex flex-col items-center justify-center h-screen bg-gray-300 w-full">
@@ -135,7 +178,7 @@ function AddEmployee() {
                 name="remote"
                 type="checkbox"
                 onChange={changeValue}
-                value={value.joinDate}
+                value={value.remote}
                 className="mt-1 p-2 w-full outline-none border-0 border-b-2 hover:border-green-600 focus:border-green-600"
                 autoComplete="off"
               />
@@ -217,14 +260,14 @@ function AddEmployee() {
 
             <div className="mb-4">
               <label htmlFor="joinDate" className="block text-sm font-medium text-gray-600">
-                Date of joining
+                End Date
               </label>
               <input
                 id="endDate"
-                name=""
+                name="endDate"
                 type="date"
                 onChange={changeValue}
-                value={value.joinDate}
+                value={value.endDate}
                 className="mt-1 p-2 w-full outline-none border-0 border-b-2 hover:border-green-600 focus:border-green-600"
                 autoComplete="off"
               />
@@ -243,13 +286,13 @@ function AddEmployee() {
                 autoComplete="off"
               >
                 <option value="">Select a language</option>
-                <option value="english">JavaScript</option>
-                <option value="spanish">Python</option>
-                <option value="french">C#</option>
-                <option value="german">C++</option>
-                <option value="italian">PHP</option>
-                <option value="italian">Swift</option>
-                <option value="italian">Ruby</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="C#">C#</option>
+                <option value="C++">C++</option>
+                <option value="PHP">PHP</option>
+                <option value="Swift">Swift</option>
+                <option value="Ruby">Ruby</option>
               </select>
             </div>
 
@@ -269,15 +312,15 @@ function AddEmployee() {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="salaray" className="block text-sm font-medium text-gray-600">
+              <label htmlFor="salary" className="block text-sm font-medium text-gray-600">
                 Current Salary
               </label>
               <input
-                id="joinDate"
-                name="joinDate"
+                id="salary"
+                name="salary"
                 type="number"
                 onChange={changeValue}
-                value={value.currentSalray}
+                value={value.salary}
                 className="mt-1 p-2 w-full outline-none border-0 border-b-2 hover:border-green-600 focus:border-green-600"
                 autoComplete="off"
               />
@@ -303,6 +346,9 @@ function AddEmployee() {
             <button type="submit" className="mt-6 px-4 py-2 col-start-1 col-end-4 justify-self-centers bg-green-600 text-white rounded">
               Submit
             </button>
+          </div>
+          <div className="w-full flex justify-center mt-5">
+            <div className="formError text-sm text-red-500"></div>
           </div>
         </form>
       </div>
