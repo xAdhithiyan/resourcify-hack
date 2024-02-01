@@ -35,7 +35,7 @@ function SideDash() {
           </div>
           <div className="border-b-2 border-black w-3/5 self-center"></div>
           <div className="p-4  m-4 rounded-lg hover:bg-green-500 transition duration-500  text-center cursor-default dashboard" onClick={changeSection}>
-            Manage Departments
+            Dashboard
           </div>
           <div className="border-b-2 border-black w-3/5 self-center"></div>
           <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Schedule</div>
