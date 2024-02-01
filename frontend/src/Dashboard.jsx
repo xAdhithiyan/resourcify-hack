@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SideDash from './smallerComponents/SideDash';
 import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js/auto';
-import { Bar, Doughnut } from 'react-chartjs-2';
+import { Bar, Doughnut, Radar } from 'react-chartjs-2';
 
 ChartJS.register(CategoryScale, LinearScale);
 
@@ -15,6 +15,17 @@ function DashBoard() {
     labels: ['A', 'B', 'C'],
     datasets: [],
   });
+  const [radarChartData, setRadarChartData] = useState({
+    labels: ['A', 'B', 'C'],
+    datasets: [],
+  });
+  const [joining, setJoining] = useState();
+  const [ending, setEnding] = useState();
+  const [remoteWork, setRemoteWork] = useState();
+  const [billing, setBilling] = useState();
+  const [aborad, setAborad] = useState();
+  const [grade4, setgrade4] = useState();
+  const [grade3, setgrade3] = useState();
 
   function totalEmployee(data) {
     setTotalEmployeeData(data.length);
@@ -75,13 +86,117 @@ function DashBoard() {
         },
       ],
     });
-    console.log(techStack);
+  }
+  function createRadar(data) {
+    const projectCounts = {};
+
+    data.forEach((item) => {
+      const projectName = item.projectName;
+      if (!projectCounts.hasOwnProperty(projectName)) {
+        projectCounts[projectName] = 1;
+      } else {
+        projectCounts[projectName]++;
+      }
+    });
+
+    const labels = Object.keys(projectCounts);
+
+    setRadarChartData({
+      labels: labels,
+      datasets: [
+        {
+          label: 'Employees',
+          data: labels.map((lan) => projectCounts[lan]),
+        },
+      ],
+      options: {
+        scales: {
+          r: {
+            angleLines: {
+              display: false,
+            },
+            suggestedMin: 50,
+            suggestedMax: 100,
+          },
+        },
+      },
+    });
+  }
+
+  function smallerBoxes(data) {
+    /* joining date */
+    let count = 0;
+    data.forEach((item) => {
+      const dateObject = new Date(item.joinDate);
+      const todaysDate = new Date();
+      if (dateObject.getMonth() == todaysDate.getMonth()) {
+        count = count + 1;
+      }
+    });
+    setJoining(count);
+
+    /* ending date */
+    count = 0;
+    data.forEach((item) => {
+      const dateObject = new Date(item.endDate);
+      const todaysDate = new Date();
+      if (dateObject.getMonth() == todaysDate.getMonth()) {
+        count = count + 1;
+      }
+    });
+    setEnding(count);
+
+    /* remote work */
+    count = 0;
+    data.forEach((item) => {
+      if (item.remote) {
+        count = count + 1;
+      }
+    });
+    setRemoteWork(count);
+
+    /* billing */
+    count = 0;
+    data.forEach((item) => {
+      if (+item.salary > 110000) {
+        count = count + 1;
+      }
+    });
+    setBilling(count);
+
+    /* abroad */
+    count = 0;
+    data.forEach((item) => {
+      if (item.location.split(' ')[item.location.split(' ').length - 1] != 'India') {
+        count = count + 1;
+      }
+    });
+    setAborad(count);
+
+    /* Grade 4  ratio */
+    count = 0;
+    data.forEach((item) => {
+      if (item.grade == 4) {
+        count = count + 1;
+      }
+    });
+
+    setgrade4(Math.floor((count / data.length) * 100) + '%');
+
+    /* Grade 3 ratio */
+    count = 0;
+    data.forEach((item) => {
+      if (item.grade == 3) {
+        count = count + 1;
+      }
+    });
+
+    setgrade3(Math.floor((count / data.length) * 100) + '%');
   }
 
   useEffect(() => {
-    // This code will run when the component mounts
     getEmployee();
-  }, []); // The empty dependency array ensures this effect runs only once on mount
+  }, []);
 
   const getEmployee = () => {
     const requestOptions = {
@@ -101,6 +216,8 @@ function DashBoard() {
         totalEmployee(data);
         createPie(data);
         createBar(data);
+        createRadar(data);
+        smallerBoxes(data);
       })
       .catch((error) => {
         console.error('Error:', error);
@@ -121,6 +238,44 @@ function DashBoard() {
           <div className="text-6xl">{totalEmployeeData}</div>
         </div>
 
+        <div className="grid grid-cols-2 grid-rows-2 gap-5 ">
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70">Joining this Month</div>
+            <div className="text-2xl">{joining}</div>
+          </div>
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70 text-center">Leaving this Month</div>
+            <div className="text-2xl">{ending}</div>
+          </div>
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70">Remote Work</div>
+            <div className="text-2xl">{remoteWork}</div>
+          </div>
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70">Pending Billing</div>
+            <div className="text-2xl">{billing}</div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 grid-rows-2 gap-5">
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70">Grade 4 Ratio</div>
+            <div className="text-2xl">{grade4}</div>
+          </div>
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70">Grade 3 Ratio</div>
+            <div className="text-2xl"> {grade3}</div>
+          </div>
+          <div className="border-2 border-black p-4 rounded bg-white flex flex-col justify-center items-center gap-5">
+            <div className="text-2xl italic opacity-70">Aboard Employee</div>
+            <div className="text-2xl">{aborad}</div>
+          </div>
+          <div className="border-2 border-black p-4 rounded  flex flex-col justify-center items-center gap-5 text-center bg-red-500 text-white cursor-default">
+            <div className="text-3xl italic opacity-70">Alert!</div>
+            <div className="text-2xl italic opacity-70">(Check Project Section)</div>
+          </div>
+        </div>
+
         <div className="flex items-center justify-center border-2 border-black p-4 rounded bg-white">
           <Doughnut data={PieChartData} />
         </div>
@@ -129,8 +284,8 @@ function DashBoard() {
           <Bar data={barChartData} />
         </div>
 
-        <div className="flex items-center justify-center border-2 border-black p-4 rounded bg-white">
-          <Bar data={barChartData} />
+        <div className=" flex items-center justify-center border-2 border-black p-8 rounded bg-white">
+          <Radar data={radarChartData} />
         </div>
       </div>
     </div>
