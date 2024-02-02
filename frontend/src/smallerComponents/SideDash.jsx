@@ -34,11 +34,17 @@ function SideDash() {
             Add Employee
           </div>
           <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default projects" onClick={changeSection}>
+          <div className="p-4 m-4 rounded-lg text-red-500 hover:bg-green-500 transition duration-500 text-center cursor-default projects" onClick={changeSection}>
             Assign Projects
           </div>
           <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Analytics</div>
+          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default analytics" onClick={changeSection}>
+            Analytics
+          </div>
+          <div className="border-b-2 border-black w-3/5 self-center"></div>
+          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default reports" onClick={changeSection}>
+            Reports
+          </div>
 
           <div
             className="w-28 h-14 rounded-lg fixed bottom-10 left-28 font-bold text-red-500 hover:bg-red-500 hover:text-white transition duration-500 flex justify-center items-center cursor-default"

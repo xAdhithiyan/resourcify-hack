@@ -2,6 +2,8 @@ import AddEmployee from './AddEmployee';
 import LoginPage from './LoginPage';
 import DashBoard from './Dashboard';
 import AssignProject from './AssignProject';
+import Analytics from './Analytics';
+import Reports from './Reports';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/projects" element={<AssignProject />} />
+        <Route path="/analytics" element={<Analytics />} />
+        <Route path="/reports" element={<Reports />} />
       </Routes>
     </BrowserRouter>
   );
