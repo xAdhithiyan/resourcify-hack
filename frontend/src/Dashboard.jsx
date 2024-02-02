@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SideDash from './smallerComponents/SideDash';
 import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js/auto';
 import { Bar, Doughnut, Radar } from 'react-chartjs-2';
@@ -194,6 +195,11 @@ function DashBoard() {
     setgrade3(Math.floor((count / data.length) * 100) + '%');
   }
 
+  let navigate = useNavigate();
+  function ProjectSection() {
+    navigate('/projects', {});
+  }
+
   useEffect(() => {
     getEmployee();
   }, []);
@@ -270,7 +276,7 @@ function DashBoard() {
             <div className="text-2xl italic opacity-70">Aboard Employee</div>
             <div className="text-2xl">{aborad}</div>
           </div>
-          <div className="border-2 border-black p-4 rounded  flex flex-col justify-center items-center gap-5 text-center bg-red-500 text-white cursor-default">
+          <div className="border-2 border-black p-4 rounded  flex flex-col justify-center items-center gap-5 text-center bg-red-500 text-white cursor-default" onClick={ProjectSection}>
             <div className="text-3xl italic opacity-70">Alert!</div>
             <div className="text-2xl italic opacity-70">(Check Project Section)</div>
           </div>

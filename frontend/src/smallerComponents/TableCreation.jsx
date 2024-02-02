@@ -72,6 +72,15 @@ function TableCreation({ uniqueId, uniqueKey, uniqueName, designation, grade, pr
     setIsModalOpen(false);
   }
 
+  /* setting background */
+  const isEndDatePassed = new Date(endDate) > new Date();
+  let backgroundColor = '';
+  if (!isEndDatePassed) {
+    backgroundColor = 'rgba(239,68, 68, 0.8)';
+    let proj = document.querySelector('.projects');
+    proj.style.color = 'rgb(239 68 68)';
+  }
+
   const customStyles = {
     content: {
       width: '50vw',
@@ -82,7 +91,7 @@ function TableCreation({ uniqueId, uniqueKey, uniqueName, designation, grade, pr
   };
 
   return (
-    <tr className="text-center text-1xl">
+    <tr className="text-center text-1xl " style={{ backgroundColor: backgroundColor }}>
       <td className="py-2 px-4 employeeId">{uniqueKey}</td>
       <td className="py-2 px-4 name">{uniqueName}</td>
       <td className="py-2 px-4 designation">{designation}</td>

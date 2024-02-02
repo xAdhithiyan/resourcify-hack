@@ -8,18 +8,14 @@ function SideDash() {
   }
 
   function changeSection(e) {
-    // Reset background color for all sideDash items
     document.querySelectorAll('.allSide div').forEach((item) => {
-      item.style.backgroundColor = ''; // Reset to default or set to your desired color
+      item.style.backgroundColor = '';
     });
 
-    // Set background color for the clicked sideDash item
     e.target.style.backgroundColor = 'white';
 
-    // Extract the last part of the class list to determine the section
     let lastUrl = e.target.classList.value.split(' ').pop();
 
-    // Use the extracted section for navigation
     navigate(`/${lastUrl}`, {});
   }
 
@@ -37,8 +33,6 @@ function SideDash() {
           <div className="p-4 rounded-lg pl-5 m-4 text-center cursor-default hover:bg-green-500 transition duration-500 employee" onClick={changeSection}>
             Add Employee
           </div>
-          <div className="border-b-2 border-black w-3/5 self-center"></div>
-          <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default">Schedule</div>
           <div className="border-b-2 border-black w-3/5 self-center"></div>
           <div className="p-4 m-4 rounded-lg hover:bg-green-500 transition duration-500 text-center cursor-default projects" onClick={changeSection}>
             Assign Projects
