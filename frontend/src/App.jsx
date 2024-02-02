@@ -1,6 +1,7 @@
 import AddEmployee from './AddEmployee';
 import LoginPage from './LoginPage';
 import DashBoard from './Dashboard';
+import AssignProject from './AssignProject';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/employee" element={<AddEmployee />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/projects" element={<AssignProject />} />
       </Routes>
     </BrowserRouter>
   );

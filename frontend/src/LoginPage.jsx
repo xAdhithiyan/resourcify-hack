@@ -19,7 +19,7 @@ function LoginPage() {
     let div = document.querySelector('.errorMessage');
 
     if (value.username == 'admin' && value.password == 'admin') {
-      navigate('/employee', {});
+      navigate('/dashboard', {});
       div.style.display = 'none';
     } else {
       div.style.display = 'block';

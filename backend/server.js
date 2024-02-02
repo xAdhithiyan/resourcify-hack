@@ -35,37 +35,35 @@ app.post('/setEmployee', async (req, res) => {
   }
 });
 
-/*
 // to get products based on id in the url
-app.get('/product/:id', async (req, res) => {
+app.get('/employee/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const products = await Product.findById(id);
-    res.status(200).json(products);
+    const employee = await Employee.findById(id);
+    res.status(200).json(employee);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
-
-
 // update a product
-app.put('/product/:id', async (req, res) => {
+app.put('/employee/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const product = await Product.findByIdAndUpdate(id, req.body, {
+    const employee = await Employee.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     // we cannot find any product from database
-    if (!product) {
+    if (!employee) {
       return res.status(404).json({ message: 'cannot find any product' });
     }
-    res.status(200).json(product);
+    res.status(200).json(employee);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
 
+/*
 // delete a product
 app.delete('/product/:id', async (req, res) => {
   try {
