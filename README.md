@@ -1,6 +1,6 @@
 # resourcify 
 ## Links
-- [View the Project](https://resourcify-hack.vercel.app/dashboard)
+- [View the Project](https://resourcify-hack-5qorp1pne-xadhithiyans-projects.vercel.app/)
 
 ## About
 A admin dashboard built using mern stack for Code Fest 2024. 
