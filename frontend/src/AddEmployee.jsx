@@ -66,7 +66,7 @@ function AddEmployee() {
       body: JSON.stringify(value),
     };
 
-    fetch('http://localhost:3000/setEmployee', requestOptions)
+    fetch('https://resourcify-hack.onrender.com/setEmployee', requestOptions)
       .then((response) => {
         if (response.ok) {
           resetForm();

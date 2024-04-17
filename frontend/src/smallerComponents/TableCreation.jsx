@@ -53,7 +53,7 @@ function TableCreation({ uniqueId, uniqueKey, uniqueName, designation, grade, pr
       body: JSON.stringify(newObj), // Include the updated data in the request body
     };
 
-    fetch(`http://localhost:3000/employee/${regId}`, requestOptions)
+    fetch(`https://resourcify-hack.onrender.com/employee/${regId}`, requestOptions)
       .then((response) => {
         if (response.ok) {
           return response.json();

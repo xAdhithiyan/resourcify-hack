@@ -210,7 +210,7 @@ function DashBoard() {
       headers: { 'Content-Type': 'application/json' },
     };
 
-    fetch('http://localhost:3000/employee', requestOptions)
+    fetch('https://resourcify-hack.onrender.com/employee', requestOptions)
       .then((response) => {
         if (response.ok) {
           return response.json();
